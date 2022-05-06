@@ -6,15 +6,17 @@
         <!-- <button @mouseover="init()">초기화</button> -->
         <button v-if="number>10">초기화</button>
 
-        <h3>{{now()}}</h3>
-        <h3>{{nowComputed}}</h3>
-        <h3>{{increaseComputed}}</h3>
+        <hr />
+        <MyHello1 name="myapp4 전달" v-bind:number="number" @setNumberFromChild="setNumberInParent"/>
+
     </div>
 </template>
 
 <script>
+import MyHello1 from './components/Hello-1.vue';
+
     export default {
-        name : "MyApp3",
+        name : "MyApp4",
         data() {
             return {
                number : 0
@@ -32,18 +34,17 @@
             화살표 함수를 사용해서 메소드를 정의하면 vue가 적절한 this 값을 바인딩 하지 못함
             this가 필요하면 메소드를 정의할 때 화살표함수 사용하지 말 것. */
 
+            setNumberInParent(e){
+                this.number=e;
+            },
+
             now(){
                 return new Date().toLocaleString();
             }
         },
 
-        computed : { //메소드 나열 (최초 호출시의 값을 고정시킴)
-            nowComputed(){
-                return new Date().toLocaleString();
-            }  ,
-            increaseComputed(){ //값변경 문장 사용 불가, 변경값을 확인하는 것만 가능
-                return this.number;
-            } 
+        components : {
+            MyHello1
         }
     }
 </script>
